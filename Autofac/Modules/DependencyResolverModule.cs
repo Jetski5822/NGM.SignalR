@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Microsoft.AspNet.SignalR;
 using NGM.SignalR.Autofac.Modules.Sources;
+using Module = Autofac.Module;
 
 namespace NGM.SignalR.Autofac.Modules
 {
@@ -10,7 +11,9 @@ namespace NGM.SignalR.Autofac.Modules
             builder
                 .RegisterType<AutofacDependencyResolver>()
                 .As<IDependencyResolver>()
-                .InstancePerDependency();
+                .InstancePerMatchingLifetimeScope("shell");
+
+            //builder.RegisterHubs(Assembly.GetExecutingAssembly());
 
             builder.RegisterSource(new HubsSource());
         }

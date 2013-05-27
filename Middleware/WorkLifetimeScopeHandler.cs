@@ -16,22 +16,20 @@ namespace NGM.SignalR.Middleware {
 
         public Task Invoke(IDictionary<string, object> env) {
 
-            var httpContextBase = (HttpContextBase)env["System.Web.HttpContextBase"];
-            var requestContext = (RequestContext)env["System.Web.Routing.RequestContext"];
+            var httpContextBase = (HttpContextBase) env["System.Web.HttpContextBase"];
+            var requestContext = (RequestContext) env["System.Web.Routing.RequestContext"];
 
-            var workContextAccessor = (IWorkContextAccessor)requestContext.RouteData.DataTokens["IWorkContextAccessor"];
+            var workContextAccessor = (IWorkContextAccessor) requestContext.RouteData.DataTokens["IWorkContextAccessor"];
 
-            using (var scope = workContextAccessor.CreateWorkContextScope(httpContextBase)) {
-                var transactionManager = scope.Resolve<ITransactionManager>();
-                try {
-                    transactionManager.Demand();
-
-                    return _next(env);
-                }
-                catch {
-                    transactionManager.Cancel();
-                    throw;
-                }
+            var scope = workContextAccessor.GetContext(httpContextBase);
+            var transactionManager = scope.Resolve<ITransactionManager>();
+            try {
+                transactionManager.Demand();
+                return _next(env);
+            }
+            catch {
+                transactionManager.Cancel();
+                throw;
             }
         }
     }
