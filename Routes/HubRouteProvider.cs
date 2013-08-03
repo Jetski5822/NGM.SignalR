@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Web.Routing;
-using NGM.SignalR.Middleware;
 using Orchard.Mvc.Routes;
 using Owin;
 
@@ -18,12 +17,9 @@ namespace NGM.SignalR.Routes {
         }
 
         public IEnumerable<RouteDescriptor> GetRoutes() {
-            
             var mapOwinRoute = new RouteCollection().MapOwinPath("signalr.hubs", "/signalr", map => {
-                    map.Use(typeof (WorkLifetimeScopeHandler));
                     map.MapHubs(_orchardHubConfiguration.Path, _orchardHubConfiguration.ConnectionConfiguration);
                 });
-
 
             yield return new RouteDescriptor {
                 Route = mapOwinRoute,

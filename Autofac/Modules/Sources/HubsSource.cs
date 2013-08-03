@@ -8,6 +8,9 @@ namespace NGM.SignalR.Autofac.Modules.Sources {
     // Contribution : Piotr Szymd
     // https://bitbucket.org/Proligence/proligence.signalr/wiki/Home
     // Registers hubs within Orchard.
+    //
+    // NGM Modifications
+    // 1. Changed InstancePerDependency() to ExternallyOwned()
     public class HubsSource : IRegistrationSource {
         public bool IsAdapterForIndividualComponents {
             get { return false; }
@@ -24,8 +27,8 @@ namespace NGM.SignalR.Autofac.Modules.Sources {
 
             var rb = RegistrationBuilder
                 .ForType(serviceType)
-                .As(typeof(IHub), serviceType)
-                .InstancePerDependency();
+                .As(typeof (IHub), serviceType)
+                .ExternallyOwned();
 
             yield return rb.CreateRegistration();
         }

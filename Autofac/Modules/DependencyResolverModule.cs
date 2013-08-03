@@ -13,8 +13,6 @@ namespace NGM.SignalR.Autofac.Modules
                 .As<IDependencyResolver>()
                 .InstancePerMatchingLifetimeScope("shell");
 
-            //builder.RegisterHubs(Assembly.GetExecutingAssembly());
-
             builder.RegisterSource(new HubsSource());
         }
     }
