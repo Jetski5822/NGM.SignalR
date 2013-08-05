@@ -1,9 +1,9 @@
 ﻿Name: SignalR
 AntiForgery: enabled
 Author: Nicholas Mayne
-Website: http://somewhereongithum.com
+Website: https://github.com/Jetski5822/NGM.SignalR
 Version: 1.0.0
-OrchardVersion: 1.6.0
+OrchardVersion: 1.7.0
 Description: SignalR is a base module allowing you to build SignalR hubs on top of it.
 Category: Transport
 Dependencies: Orchard.jQuery
