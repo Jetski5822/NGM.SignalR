@@ -28,7 +28,7 @@ namespace NGM.SignalR.Autofac.Modules.Sources {
             var rb = RegistrationBuilder
                 .ForType(serviceType)
                 .As(typeof (IHub), serviceType)
-                .ExternallyOwned();
+                .InstancePerDependency();
 
             yield return rb.CreateRegistration();
         }
